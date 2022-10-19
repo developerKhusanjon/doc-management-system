@@ -4,44 +4,28 @@ CREATE DATABASE docmg;
 
 -- Companies
 CREATE TABLE companies (
-  id serial NOT NULL,
-  PRIMARY KEY (id),
-  name character varying NOT NULL,
-  address character varying NOT NULL
+  id serial PRIMARY KEY,
+  name varchar(100) NOT NULL,
+  address varchar NOT NULL
 );
-
--- Admins
-CREATE TABLE admins (
-  id uuid NOT NULL,
-  name character varying NOT NULL,
-  role character varying NOT NULL,
-  year_of_employment smallint NOT NULL,
-  company_id integer NOT NULL
-);
-
-ALTER TABLE admins
-ADD CONSTRAINT admins_id PRIMARY KEY (id);
-ALTER TABLE admins
-ADD FOREIGN KEY (company_id) REFERENCES companies (id);
 
 -- Employees
 CREATE TABLE employees (
-  id uuid NOT NULL,
-  name character varying NOT NULL,
-  role character varying NOT NULL,
-  year_of_employment smallint NOT NULL,
-  company_id integer NOT NULL
+  id serial PRIMARY KEY,
+  name varchar(100) NOT NULL,
+  role varchar(100) NOT NULL,
+  company_id integer REFERENCES companies
 );
-
-ALTER TABLE employees
-ADD CONSTRAINT employees_id PRIMARY KEY (id);
-ALTER TABLE employees
-ADD FOREIGN KEY (company_id) REFERENCES companies (id);
 
 -- WebForms
 CREATE TABLE web_forms (
-  id serial NOT NULL,
-  PRIMARY KEY (id),
-  title character varying NOT NULL
-  content character varying NOT NULL
+  id serial PRIMARY KEY,
+  title varchar(100) NOT NULL
+  description varchar NOT NULL
 );
+
+CREATE TABLE form_submissions (
+    id serial PRIMARY KEY,
+    input_data varchar NOT NULL,
+    web_form_id REFERENCES web_forms
+)
