@@ -9,7 +9,7 @@ import doobie.implicits._
 import scala.collection.immutable
 
 
-final case class WebForm(title: String, description: String)
+final case class WebForm(title: String)
 final case class WebForms(forms: immutable.Seq[WebForm])
 
 object WebFormRegistry {
@@ -31,7 +31,7 @@ object WebFormRegistry {
 
   def dbGetForms(xa: Transactor): WebForms = {
     WebForms(
-      sql"SELECT title, description FROM web_forms".
+      sql"SELECT title FROM web_forms".
         query[WebForm].
         to[List].
         transact(xa).
@@ -40,7 +40,7 @@ object WebFormRegistry {
   }
 
   def dbGetForm(xa: Transactor, title: String): Option[WebForm] = {
-    sql"SELECT title, description FROM web_forms WHERE title = ${title}".
+    sql"SELECT title FROM web_forms WHERE title = ${title}".
       query[WebForm].
       option.
       transact(xa).
@@ -48,7 +48,7 @@ object WebFormRegistry {
   }
 
   def dbCreateForm(xa: Transactor, form: WebForm): Unit = {
-    sql"INSERT INTO web_forms (title, description) VALUES(${form.title}, ${form.description}".
+    sql"INSERT INTO web_forms (title) VALUES(${form.title})".
       update.
       withUniqueGeneratedKeys[Int]("id").
       transact(xa).
