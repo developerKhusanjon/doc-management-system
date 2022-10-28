@@ -1,1 +1,6 @@
-addSbtPlugin("io.github.davidmweber" % "flyway-sbt" % "7.4.0")
+logLevel := Level.Warn
+
+resolvers += Classpaths.sbtPluginReleases
+
+addSbtPlugin("io.spray" %% "sbt-revolver" % "0.9.0")
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.2.2")
