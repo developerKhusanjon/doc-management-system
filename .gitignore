@@ -9,3 +9,5 @@ target/
 .idea/tasks.xml
 .idea/workspace.xml
 .idea_modules/
+.idea/sbt.xml
+.bsp/sbt.json

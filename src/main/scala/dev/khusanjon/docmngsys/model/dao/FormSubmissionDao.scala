@@ -8,7 +8,7 @@ import slick.jdbc.PostgresProfile.api._
 object FormSubmissionDao extends BaseDao {
   def findAll(): Future[Seq[FormSubmission]] = formSubmissionTable.result
 
-  def findById(id: Long): Future[FormSubmission] = formSubmissionTable.filter(_.id === id).result.head
+  def findById(id: Long): Future[Option[FormSubmission]] = formSubmissionTable.filter(_.id === id).result.headOption
 
   def create(formSubmission: FormSubmission): Future[Long] = formSubmissionTable returning formSubmissionTable.map(_.id) += formSubmission
 

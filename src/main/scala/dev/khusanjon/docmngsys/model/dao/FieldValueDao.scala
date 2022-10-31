@@ -8,7 +8,7 @@ import slick.jdbc.PostgresProfile.api._
 object FieldValueDao extends BaseDao {
   def findAll(): Future[Seq[FieldValue]] = fieldValueTable.result
 
-  def findById(id: Long): Future[FieldValue] = fieldValueTable.filter(_.id === id).result.head
+  def findById(id: Long): Future[Option[FieldValue]] = fieldValueTable.filter(_.id === id).result.headOption
 
   def create(fieldValue: FieldValue): Future[Long] = fieldValueTable returning fieldValueTable.map(_.id) += fieldValue
 

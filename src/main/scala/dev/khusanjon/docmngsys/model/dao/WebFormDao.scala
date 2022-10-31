@@ -8,7 +8,7 @@ import slick.jdbc.PostgresProfile.api._
 object WebFormDao extends BaseDao {
   def findAll(): Future[Seq[WebForm]] = webFormTable.result
 
-  def findById(id: Long): Future[WebForm] = webFormTable.filter(_.id === id).result.head
+  def findById(id: Long): Future[Option[WebForm]] = webFormTable.filter(_.id === id).result.headOption
 
   def create(webForm: WebForm): Future[Long] = webFormTable returning webFormTable.map(_.id) += webForm
 

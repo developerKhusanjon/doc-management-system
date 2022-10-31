@@ -8,7 +8,7 @@ import slick.jdbc.PostgresProfile.api._
 object EmployeeDao extends BaseDao {
   def findAll(): Future[Seq[Employee]] = employeeTable.result
 
-  def findById(id: Long): Future[Employee] = employeeTable.filter(_.id === id).result.head
+  def findById(id: Long): Future[Option[Employee]] = employeeTable.filter(_.id === id).result.headOption
 
   def create(employee: Employee): Future[Long] = employeeTable returning employeeTable.map(_.id) += employee
 
