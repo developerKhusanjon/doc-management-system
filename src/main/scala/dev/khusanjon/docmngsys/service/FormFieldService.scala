@@ -1,4 +1,5 @@
 package dev.khusanjon.docmngsys.service
+
 import dev.khusanjon.docmngsys.model.dao.FormFieldDao
 import dev.khusanjon.docmngsys.model.entity.FormField
 import spray.json.{DefaultJsonProtocol, RootJsonFormat, _}
@@ -6,7 +7,7 @@ import spray.json.{DefaultJsonProtocol, RootJsonFormat, _}
 import scala.concurrent.ExecutionContext.Implicits.global
 
 trait JsonMapping extends DefaultJsonProtocol {
-  implicit val customerFormat: RootJsonFormat[FormField] = jsonFormat4(FormField)
+  implicit val formFieldFormat: RootJsonFormat[FormField] = jsonFormat4(FormField)
 }
 
 object FormFieldService extends JsonMapping {

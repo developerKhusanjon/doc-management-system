@@ -7,11 +7,11 @@ name := "doc-management-system"
 
 fork := true
 
-lazy val DB_HOST=sys.env.get("POSTGRESQL_ADDON_HOST").getOrElse("localhost")
-lazy val DB_PORT=sys.env.get("POSTGRESQL_ADDON_PORT").getOrElse("5432")
-lazy val DB_NAME=sys.env.get("POSTGRESQL_ADDON_DB").getOrElse("postgres")
-lazy val DB_USER=sys.env.get("POSTGRESQL_ADDON_USER").getOrElse("login")
-lazy val DB_PASS=sys.env.get("POSTGRESQL_ADDON_PASSWORD").getOrElse("pass")
+lazy val DB_HOST=sys.env.getOrElse("POSTGRESQL_ADDON_HOST", "localhost")
+lazy val DB_PORT=sys.env.getOrElse("POSTGRESQL_ADDON_PORT", "5432")
+lazy val DB_NAME=sys.env.getOrElse("POSTGRESQL_ADDON_DB", "postgres")
+lazy val DB_USER=sys.env.getOrElse("POSTGRESQL_ADDON_USER", "login")
+lazy val DB_PASS=sys.env.getOrElse("POSTGRESQL_ADDON_PASSWORD", "pass")
 
 lazy val root = (project in file("."))
   .settings(
@@ -44,3 +44,17 @@ lazy val root = (project in file("."))
       )
     }
   )
+
+enablePlugins(FlywayPlugin)
+
+lazy val CustomConfig = config("custom") extend Runtime
+lazy val customSettings: Seq[Def.Setting[_]] = Seq(
+  flywayUser := "docker",
+  flywayPassword := "docker",
+  flywayUrl := "jdbc:postgresql://localhost:5432/docdb",
+  flywayLocations += "db/migration"
+)
+
+lazy val flyWay = (project in file("."))
+  .settings(inConfig(CustomConfig)(FlywayPlugin.flywayBaseSettings(CustomConfig) ++
+    customSettings): _*)

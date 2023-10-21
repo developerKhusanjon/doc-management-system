@@ -7,7 +7,7 @@ import spray.json.{DefaultJsonProtocol, RootJsonFormat, _}
 import scala.concurrent.ExecutionContext.Implicits.global
 
 trait JsonMapping extends DefaultJsonProtocol {
-  implicit val customerFormat: RootJsonFormat[WebForm] = jsonFormat2(WebForm)
+  implicit val webFormFormat: RootJsonFormat[WebForm] = jsonFormat2(WebForm)
 }
 
 object WebFormService extends JsonMapping {

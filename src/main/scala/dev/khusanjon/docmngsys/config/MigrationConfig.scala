@@ -4,8 +4,7 @@ import org.flywaydb.core.Flyway
 
 trait MigrationConfig extends Config {
 
-  private val flyway = new Flyway()
-  flyway.setDataSource(databaseUrl, databaseUser, databasePassword)
+  private val flyway = new Flyway(Flyway.configure())
 
   def migrate(): Unit = flyway.migrate()
 

@@ -14,11 +14,11 @@ object EmployeeDao extends BaseDao {
 
   def update(id: Long, newEmployee: Employee): Future[Int] = {
     employeeTable.filter(_.id === id).map(employee => (employee.name, employee.role, employee.companyId))
-  .update((newEmployee.name, newEmployee.role, newEmployee.companyId))
-}
+      .update((newEmployee.name, newEmployee.role, newEmployee.companyId))
+  }
 
 
   def delete(id: Long): Future[Int] = {
     employeeTable.filter(_.id === id).delete
-}
+  }
 }

@@ -1,5 +1,5 @@
 package dev.khusanjon.docmngsys.model.entity
 
-import java.sql.Date
+import java.time.LocalDateTime
 
-case class FormSubmission(id: Option[Long], date: Date, webFormId: Long)
+case class FormSubmission(id: Option[Long], date: LocalDateTime, webFormId: Long)
